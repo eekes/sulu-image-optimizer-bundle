@@ -109,7 +109,7 @@ squeeze out the rest.
 | PHP | 8.3 or newer, with GD |
 | Sulu | 3.0 (Sulu 2 is not supported) |
 | Symfony | 7.2 or newer, 8.x |
-| Doctrine | ORM 3, DoctrineBundle 2.13 or newer, 3.x |
+| Doctrine | ORM 2.17.3 or newer, 3.3 or newer, DoctrineBundle 2.13 or newer, 3.x |
 
 ## Development
 

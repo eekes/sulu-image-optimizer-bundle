@@ -24,12 +24,12 @@ Eekes\Sulu\ImageOptimizerBundle\EekesSuluImageOptimizerBundle::class => ['all' =
 
 ## 2. Move the configuration
 
-The configuration key changed from `innomedio_sulu_image_optimize_config` to
+The configuration key changed from `innomedio_sulu_image_optimizer` to
 `eekes_sulu_image_optimizer`. Rename the file and the key:
 
 ```yaml
 # before: config/packages/innomedio_sulu_image_optimizer.yaml
-innomedio_sulu_image_optimize_config:
+innomedio_sulu_image_optimizer:
     enabled: true
     logger: 'monolog.logger.image_optimizer'
     resize:
