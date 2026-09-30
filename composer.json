@@ -1,0 +1,91 @@
+{
+    "name": "eekes/sulu-image-optimizer-bundle",
+    "type": "symfony-bundle",
+    "description": "Optimizes and resizes images before they are stored in the Sulu media library, with a log of what every upload saved",
+    "keywords": [
+        "sulu",
+        "sulu-bundle",
+        "symfony",
+        "symfony-bundle",
+        "image",
+        "image-optimization",
+        "resize",
+        "webp",
+        "avif",
+        "svg-sanitizer",
+        "media"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ewald Vanderveken",
+            "email": "vandervekenewald@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "ext-gd": "*",
+        "ext-libxml": "*",
+        "ext-xmlreader": "*",
+        "doctrine/dbal": "^3.8 || ^4.0",
+        "doctrine/doctrine-bundle": "^2.13 || ^3.0",
+        "doctrine/orm": "^2.17.3 || ^3.3",
+        "enshrined/svg-sanitize": "^1.0",
+        "psr/log": "^3.0",
+        "spatie/image": "^3.8",
+        "spatie/image-optimizer": "^1.8",
+        "sulu/sulu": "^3.0",
+        "symfony/config": "^7.2 || ^8.0",
+        "symfony/console": "^7.2 || ^8.0",
+        "symfony/dependency-injection": "^7.2 || ^8.0",
+        "symfony/doctrine-bridge": "^7.2 || ^8.0",
+        "symfony/event-dispatcher": "^7.2 || ^8.0",
+        "symfony/framework-bundle": "^7.2 || ^8.0",
+        "symfony/http-foundation": "^7.2 || ^8.0",
+        "symfony/http-kernel": "^7.2 || ^8.0",
+        "symfony/process": "^7.2 || ^8.0",
+        "symfony/routing": "^7.2 || ^8.0"
+    },
+    "require-dev": {
+        "php-cs-fixer/shim": "^3.58",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-doctrine": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "phpstan/phpstan-symfony": "^2.0",
+        "phpunit/phpunit": "^11.5 || ^12.1",
+        "symfony/browser-kit": "^7.2 || ^8.0",
+        "symfony/monolog-bundle": "^3.10 || ^4.0",
+        "symfony/yaml": "^7.2 || ^8.0"
+    },
+    "conflict": {
+        "innomedio/sulu-image-optimizer-bundle": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Eekes\\Sulu\\ImageOptimizerBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Eekes\\Sulu\\ImageOptimizerBundle\\Tests\\": "tests/"
+        },
+        "exclude-from-classmap": [
+            "tests/Application/var/"
+        ]
+    },
+    "scripts": {
+        "cs": "php-cs-fixer fix --dry-run --diff",
+        "cs-fix": "php-cs-fixer fix",
+        "phpstan": "phpstan analyse --memory-limit=1G",
+        "test": "phpunit",
+        "psr": "@composer dump-autoload --optimize --strict-psr"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true
+        },
+        "sort-packages": true
+    }
+}

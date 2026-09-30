@@ -1,0 +1,80 @@
+framework:
+    test: true
+    secret: 'eekes-sulu-image-optimizer'
+    http_method_override: false
+    handle_all_throwables: true
+    php_errors:
+        log: true
+
+doctrine:
+    dbal:
+        driver: 'pdo_sqlite'
+        url: 'sqlite:///%kernel.cache_dir%/test.db'
+    orm:
+        auto_mapping: false
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        mappings:
+            TestDoubles:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/../Double'
+                prefix: 'Eekes\Sulu\ImageOptimizerBundle\Tests\Double'
+
+monolog:
+    handlers:
+        image_optimizer:
+            type: test
+            level: debug
+            channels: ['image_optimizer']
+        main:
+            type: 'null'
+            channels: ['!image_optimizer']
+
+services:
+    # No optimizer binaries in the test run: the suite has to give the same answers on every machine,
+    # whatever happens to be installed. SpatieOptimizerToolsTest covers the real ones.
+    Eekes\Sulu\ImageOptimizerBundle\Tests\Double\FakeOptimizerTools:
+        public: true
+
+    Eekes\Sulu\ImageOptimizerBundle\Application\Service\OptimizerToolsInterface:
+        alias: Eekes\Sulu\ImageOptimizerBundle\Tests\Double\FakeOptimizerTools
+
+    # Tests reach the services under these ids.
+    eekes_test.image_optimizer:
+        alias: Eekes\Sulu\ImageOptimizerBundle\Application\Service\ImageOptimizer
+        public: true
+
+    eekes_test.recorder:
+        alias: Eekes\Sulu\ImageOptimizerBundle\Application\Service\OptimizationRecorder
+        public: true
+
+    eekes_test.repository:
+        alias: Eekes\Sulu\ImageOptimizerBundle\Domain\Repository\ImageOptimizationRepository
+        public: true
+
+    eekes_test.log:
+        alias: monolog.handler.image_optimizer
+        public: true
+
+    eekes_test.entity_manager:
+        alias: doctrine.orm.entity_manager
+        public: true
+
+    eekes_test.router:
+        alias: router
+        public: true
+
+    eekes_test.check_command:
+        alias: Eekes\Sulu\ImageOptimizerBundle\Application\Command\CheckOptimizersCommand
+        public: true
+
+when@test:
+    doctrine:
+        orm:
+            # In a Sulu project SuluPersistenceBundle resolves MediaInterface to Sulu's Media entity.
+            #
+            # Not in the "phpstan" environment tests/object-manager.php boots: there the mapping is
+            # checked as the bundle declares it, against MediaInterface, rather than against the test
+            # double a project never has.
+            resolve_target_entities:
+                Sulu\Bundle\MediaBundle\Entity\MediaInterface: Eekes\Sulu\ImageOptimizerBundle\Tests\Double\Media

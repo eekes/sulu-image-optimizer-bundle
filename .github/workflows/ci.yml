@@ -1,0 +1,71 @@
+name: CI
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+
+permissions:
+    contents: read
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+env:
+    PHP_EXTENSIONS: dom, exif, fileinfo, gd, mbstring, pdo_sqlite, xmlreader
+
+jobs:
+    tests:
+        name: PHP ${{ matrix.php }}, ${{ matrix.dependencies }} dependencies
+        runs-on: ubuntu-latest
+
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    # The lowest versions composer.json allows: Symfony 7.2, DoctrineBundle 2.
+                    - php: '8.3'
+                      dependencies: lowest
+                    # The newest Symfony 7.
+                    - php: '8.3'
+                      dependencies: highest
+                    # Symfony 8 and DoctrineBundle 3, which need PHP 8.4.
+                    - php: '8.4'
+                      dependencies: highest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+                  extensions: ${{ env.PHP_EXTENSIONS }}
+                  coverage: none
+
+            - uses: ramsey/composer-install@v3
+              with:
+                  dependency-versions: ${{ matrix.dependencies }}
+
+            - run: composer test
+
+    quality:
+        name: Static analysis and code style
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.4'
+                  extensions: ${{ env.PHP_EXTENSIONS }}
+                  coverage: none
+
+            - run: composer validate --strict --no-check-lock
+
+            - uses: ramsey/composer-install@v3
+
+            - run: composer psr
+            - run: composer cs
+            - run: composer phpstan

@@ -1,0 +1,7 @@
+/.idea/
+/.php-cs-fixer.cache
+/.phpunit.cache/
+/composer.lock
+/vendor/
+var/
+/assets/admin/node_modules/

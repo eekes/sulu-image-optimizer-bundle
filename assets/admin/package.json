@@ -1,0 +1,16 @@
+{
+    "name": "sulu-image-optimizer-bundle",
+    "version": "1.0.0",
+    "description": "Administration interface of eekes/sulu-image-optimizer-bundle",
+    "license": "MIT",
+    "main": "index.js",
+    "dependencies": {
+        "classnames": "^2.2.5"
+    },
+    "peerDependencies": {
+        "mobx": "^4.0.0",
+        "mobx-react": "^5.0.0",
+        "react": "^16.2.0 || ^17.0.0",
+        "sulu-admin-bundle": "^3.0.0"
+    }
+}

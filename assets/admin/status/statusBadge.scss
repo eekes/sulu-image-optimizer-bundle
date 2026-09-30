@@ -1,0 +1,28 @@
+.badge {
+    display: inline-block;
+    border-radius: 3px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 16px;
+    white-space: nowrap;
+    color: #fff;
+    background: #8e8e8e;
+}
+
+.optimized {
+    background: #52b6ca;
+}
+
+.unchanged {
+    background: #6ac86b;
+}
+
+.skipped {
+    color: #333;
+    background: #e0e0e0;
+}
+
+.failed {
+    background: #cf3839;
+}

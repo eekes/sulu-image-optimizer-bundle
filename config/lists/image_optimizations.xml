@@ -1,0 +1,162 @@
+<?xml version="1.0" ?>
+<list xmlns="http://schemas.sulu.io/list-builder/list">
+    <key>eekes_image_optimizations</key>
+
+    <joins name="media">
+        <join>
+            <entity-name>%sulu.model.media.class%</entity-name>
+            <field-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization.media</field-name>
+        </join>
+    </joins>
+
+    <properties>
+        <property name="id" visibility="no" translation="sulu_admin.id">
+            <field-name>id</field-name>
+            <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+        </property>
+
+        <property name="createdAt" visibility="always" translation="eekes_image_optimizer.created_at">
+            <field-name>createdAt</field-name>
+            <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+            <transformer type="datetime">
+                <params>
+                    <param name="format" value="d/m/Y H:i"/>
+                </params>
+            </transformer>
+            <filter type="datetime"/>
+        </property>
+
+        <property name="fileName" visibility="always" searchability="yes" translation="eekes_image_optimizer.file_name">
+            <field-name>fileName</field-name>
+            <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+        </property>
+
+        <property name="status" visibility="always" translation="eekes_image_optimizer.status">
+            <field-name>status</field-name>
+            <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+            <transformer type="eekes_image_optimizer_status"/>
+            <filter type="select">
+                <params>
+                    <param name="options" type="collection">
+                        <param name="optimized" value="eekes_image_optimizer.status_optimized"/>
+                        <param name="unchanged" value="eekes_image_optimizer.status_unchanged"/>
+                        <param name="skipped" value="eekes_image_optimizer.status_skipped"/>
+                        <param name="failed" value="eekes_image_optimizer.status_failed"/>
+                    </param>
+                </params>
+            </filter>
+        </property>
+
+        <property name="originalSize" visibility="yes" type="bytes" translation="eekes_image_optimizer.original_size">
+            <field-name>originalSize</field-name>
+            <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+        </property>
+
+        <property name="finalSize" visibility="yes" type="bytes" translation="eekes_image_optimizer.final_size">
+            <field-name>finalSize</field-name>
+            <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+        </property>
+
+        <property name="savedBytes" visibility="always" type="bytes" translation="eekes_image_optimizer.saved">
+            <field-name>savedBytes</field-name>
+            <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+            <filter type="number"/>
+        </property>
+
+        <property name="savedPercentage" visibility="always" translation="eekes_image_optimizer.saved_percentage">
+            <field-name>savedPercentage</field-name>
+            <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+            <transformer type="eekes_image_optimizer_percentage"/>
+            <filter type="number"/>
+        </property>
+
+        <concatenation-property name="originalDimensions" visibility="yes" translation="eekes_image_optimizer.original_dimensions" glue=" × " sortable="false">
+            <field>
+                <field-name>originalWidth</field-name>
+                <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+            </field>
+            <field>
+                <field-name>originalHeight</field-name>
+                <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+            </field>
+        </concatenation-property>
+
+        <concatenation-property name="finalDimensions" visibility="yes" translation="eekes_image_optimizer.final_dimensions" glue=" × " sortable="false">
+            <field>
+                <field-name>finalWidth</field-name>
+                <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+            </field>
+            <field>
+                <field-name>finalHeight</field-name>
+                <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+            </field>
+        </concatenation-property>
+
+        <property name="format" visibility="yes" translation="eekes_image_optimizer.format">
+            <field-name>format</field-name>
+            <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+            <filter type="select">
+                <params>
+                    <param name="options" type="collection">
+                        <param name="jpg" value="JPEG"/>
+                        <param name="png" value="PNG"/>
+                        <param name="gif" value="GIF"/>
+                        <param name="webp" value="WebP"/>
+                        <param name="avif" value="AVIF"/>
+                        <param name="svg" value="SVG"/>
+                    </param>
+                </params>
+            </filter>
+        </property>
+
+        <property name="message" visibility="yes" searchability="yes" translation="eekes_image_optimizer.message">
+            <field-name>message</field-name>
+            <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+        </property>
+
+        <property name="userName" visibility="yes" searchability="yes" translation="eekes_image_optimizer.user">
+            <field-name>userName</field-name>
+            <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+        </property>
+
+        <property name="tools" visibility="no" searchability="yes" translation="eekes_image_optimizer.tools">
+            <field-name>tools</field-name>
+            <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+        </property>
+
+        <property name="source" visibility="no" translation="eekes_image_optimizer.source">
+            <field-name>source</field-name>
+            <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+            <filter type="select">
+                <params>
+                    <param name="options" type="collection">
+                        <param name="upload" value="eekes_image_optimizer.source_upload"/>
+                        <param name="command" value="eekes_image_optimizer.source_command"/>
+                    </param>
+                </params>
+            </filter>
+        </property>
+
+        <property name="durationMs" visibility="no" type="number" translation="eekes_image_optimizer.duration">
+            <field-name>durationMs</field-name>
+            <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+        </property>
+
+        <property name="mediaVersion" visibility="no" type="number" translation="eekes_image_optimizer.media_version">
+            <field-name>mediaVersion</field-name>
+            <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+        </property>
+
+        <property name="locale" visibility="never">
+            <field-name>locale</field-name>
+            <entity-name>Eekes\Sulu\ImageOptimizerBundle\Domain\Entity\ImageOptimization</entity-name>
+        </property>
+
+        <!-- Not a column: what the link of a row to its media is built from. -->
+        <property name="mediaId" visibility="never">
+            <field-name>id</field-name>
+            <entity-name>%sulu.model.media.class%</entity-name>
+            <joins ref="media"/>
+        </property>
+    </properties>
+</list>
